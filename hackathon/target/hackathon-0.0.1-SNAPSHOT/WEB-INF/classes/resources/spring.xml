@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+<!--1.check context NS
+    2.Use component-scan
+    3.provide base-package
+    4.Use @Component -->
+    
+  <context:component-scan base-package="com.xworkz.tourism"></context:component-scan>
+  
+ <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+<property name="prefix" value="/view/addPlace/"></property>
+<property name="suffix" value=".jsp"></property>
+</bean>
+
+<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+<constructor-arg value="${datasource.url}"></constructor-arg>
+<constructor-arg value="${datasource.username}"></constructor-arg>
+<constructor-arg value="${datasource.password}"></constructor-arg>
+<property name="driverClassName" value="${datasource.driver}"></property>
+
+</bean>
+
+ <bean id="placeholder" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+<property name="locations" value="classpath:resources/spring/integrate.properties"></property>
+</bean>
+
+
+
+ <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+<property name="dataSource" ref="dataSource"></property>
+<property name="annotatedClasses">
+<list>
+<value>com.xworkz.tourism.entity.addPlace.AddPlaceEntity</value>
+</list>
+</property>
+</bean> 
+
+ 
+ 
+
+
+</beans>
